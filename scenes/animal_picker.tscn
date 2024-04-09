@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bos1iabv14thx"]
+
+[ext_resource type="Script" path="res://scripts/battle/animal_picker.gd" id="1_60vvw"]
+[ext_resource type="Script" path="res://scripts/UI/animal_list.gd" id="2_7xxkd"]
+[ext_resource type="PackedScene" uid="uid://b001y6er7gm6b" path="res://scenes/animal_button.tscn" id="3_5g2o4"]
+
+[node name="AnimalPicker" type="Panel" node_paths=PackedStringArray("animal_list")]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -500.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_60vvw")
+button_size = Vector2i(150, 150)
+animal_list = NodePath("ScrollContainer/AnimalList")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="AnimalList" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 5
+script = ExtResource("2_7xxkd")
+animal_button_scene = ExtResource("3_5g2o4")

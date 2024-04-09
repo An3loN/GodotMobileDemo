@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8nd3nrwv25y7"]
+
+[ext_resource type="PackedScene" uid="uid://bvu8vga3thi6q" path="res://scenes/battle.tscn" id="1_22w50"]
+[ext_resource type="Script" path="res://scripts/main_controller.gd" id="1_nbi13"]
+[ext_resource type="PackedScene" uid="uid://b001y6er7gm6b" path="res://scenes/animal_button.tscn" id="2_cbria"]
+[ext_resource type="Script" path="res://scripts/UI/animal_list.gd" id="2_wxld7"]
+[ext_resource type="Script" path="res://scripts/animal_loader.gd" id="3_6f6c1"]
+[ext_resource type="Script" path="res://scripts/battle/animal_picker.gd" id="3_85wlg"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_nbi13")
+
+[node name="Battle" parent="." instance=ExtResource("1_22w50")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.210165, 0.977666, 0, -0.977666, 0.210165, 0, 3.58185, 1.98885)
+
+[node name="PreviewHolder" type="Node3D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimalPicker" type="Panel" parent="Control" node_paths=PackedStringArray("preview_holder")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -500.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_85wlg")
+preview_holder = NodePath("../../PreviewHolder")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/AnimalPicker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="AnimalList" type="ItemList" parent="Control/AnimalPicker/ScrollContainer"]
+custom_minimum_size = Vector2(720, 150)
+layout_mode = 2
+script = ExtResource("2_wxld7")
+element_scene = ExtResource("2_cbria")
+
+[node name="AnimalLoader" type="Node" parent="."]
+script = ExtResource("3_6f6c1")
+
+[connection signal="animals_loaded" from="AnimalLoader" to="Control/AnimalPicker" method="_on_animal_loader_animals_loaded"]
+[connection signal="animals_loaded" from="AnimalLoader" to="Control/AnimalPicker/ScrollContainer/AnimalList" method="_on_animal_loader_animals_loaded"]

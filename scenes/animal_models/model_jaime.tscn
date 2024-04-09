@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://chw1v2al12egf"]
+
+[ext_resource type="Script" path="res://scripts/battle/animal_model.gd" id="1_bthxg"]
+
+[sub_resource type="TextMesh" id="TextMesh_b38tr"]
+text = "J"
+font_size = 66
+
+[node name="Jaime" type="Node3D"]
+script = ExtResource("1_bthxg")
+
+[node name="TopMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.662698, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0.375, 0)
+mesh = SubResource("TextMesh_b38tr")

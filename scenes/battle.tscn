@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://bvu8vga3thi6q"]
+
+[ext_resource type="Script" path="res://scripts/battle/enemy_generator.gd" id="1_ef4ig"]
+[ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_inm8a"]
+[ext_resource type="Resource" uid="uid://q7q0o4d2u5l" path="res://data/animals/animal3.tres" id="3_ylalj"]
+[ext_resource type="Script" path="res://scripts/plane_grid.gd" id="4_50nuw"]
+[ext_resource type="PackedScene" uid="uid://bhyg0akxwkep4" path="res://scenes/enemy_warner.tscn" id="5_xqgxj"]
+[ext_resource type="Script" path="res://scripts/battle/animal_spawner.gd" id="6_6hyud"]
+[ext_resource type="PackedScene" uid="uid://ccjc763wnwsly" path="res://scenes/animal.tscn" id="6_b2r3u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxsen"]
+albedo_color = Color(0.270588, 0.537255, 0.141176, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xymkh"]
+material = SubResource("StandardMaterial3D_gxsen")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vch8o"]
+size = Vector3(2, 0.04, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u7men"]
+seed = 90
+frequency = 0.0499
+
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("preview_holder")]
+script = ExtResource("1_inm8a")
+animal_preview_camera_depth = 3.0
+preview_holder = NodePath(".")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+collision_layer = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+mesh = SubResource("PlaneMesh_xymkh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+shape = SubResource("BoxShape3D_vch8o")
+
+[node name="EnemyGenerator" type="Node3D" parent="."]
+script = ExtResource("1_ef4ig")
+enemy_animal = ExtResource("3_ylalj")
+animal_scene = ExtResource("6_b2r3u")
+enemy_warner_scene = ExtResource("5_xqgxj")
+generation_noise = SubResource("FastNoiseLite_u7men")
+
+[node name="Grid" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+script = ExtResource("4_50nuw")
+grid_size = Vector2(2, 2)
+cell_count = Vector2i(8, 8)
+
+[node name="Animals" type="Node3D" parent="."]
+
+[node name="AnimalSpawner" type="Node3D" parent="." node_paths=PackedStringArray("animals_parent_node")]
+script = ExtResource("6_6hyud")
+animal_scene = ExtResource("6_b2r3u")
+animals_parent_node = NodePath("../Animals")

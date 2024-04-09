@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://drvy5cmsglfvp"]
+
+[ext_resource type="Script" path="res://scripts/resource_scripts/animals_list.gd" id="1_aggda"]
+[ext_resource type="Resource" uid="uid://b51xtm6tnmb7j" path="res://data/animals/animal2.tres" id="1_vyjbn"]
+[ext_resource type="Resource" uid="uid://q7q0o4d2u5l" path="res://data/animals/animal3.tres" id="3_0sthr"]
+[ext_resource type="Resource" uid="uid://dtopfoxejhtnt" path="res://data/animals/animal.tres" id="4_h3wlf"]
+
+[resource]
+script = ExtResource("1_aggda")
+animals_data = Array[Resource("res://scripts/resource_scripts/animal_data.gd")]([ExtResource("1_vyjbn"), ExtResource("3_0sthr"), ExtResource("4_h3wlf")])

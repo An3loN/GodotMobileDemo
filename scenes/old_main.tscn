@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8nd3nrwv25y7"]
+
+[ext_resource type="PackedScene" uid="uid://bvu8vga3thi6q" path="res://scenes/battle.tscn" id="1_22w50"]
+[ext_resource type="Script" path="res://scripts/_old_main_controller.gd" id="1_nbi13"]
+[ext_resource type="Script" path="res://scripts/UI/animal_list.gd" id="2_wxld7"]
+[ext_resource type="Script" path="res://scripts/animal_loader.gd" id="3_6f6c1"]
+[ext_resource type="Script" path="res://scripts/battle/animal_picker.gd" id="3_85wlg"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_nbi13")
+
+[node name="Battle" parent="." node_paths=PackedStringArray("preview_holder") instance=ExtResource("1_22w50")]
+preview_holder = NodePath("PreviewHolder")
+
+[node name="PreviewHolder" type="Node3D" parent="Battle"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.210165, 0.977666, 0, -0.977666, 0.210165, 0, 2.95685, 1.48885)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimalPicker" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -500.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_85wlg")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/AnimalPicker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="AnimalList" type="GridContainer" parent="Control/AnimalPicker/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+script = ExtResource("2_wxld7")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.0
+offset_right = 82.0
+offset_bottom = 72.0
+grow_horizontal = 2
+text = "Start"
+
+[node name="AnimalLoader" type="Node" parent="."]
+script = ExtResource("3_6f6c1")
+
+[connection signal="pressed" from="Control/Button" to="Battle" method="_on_button_pressed"]

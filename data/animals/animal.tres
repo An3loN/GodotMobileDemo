@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=7 format=3 uid="uid://dtopfoxejhtnt"]
+
+[ext_resource type="Script" path="res://scripts/resource_scripts/base_stats.gd" id="1_2pu1b"]
+[ext_resource type="PackedScene" uid="uid://chw1v2al12egf" path="res://scenes/animal_models/model_jaime.tscn" id="2_mfkkk"]
+[ext_resource type="Script" path="res://scripts/resource_scripts/animal_data.gd" id="3_w6wcc"]
+
+[sub_resource type="Resource" id="Resource_dst3y"]
+script = ExtResource("1_2pu1b")
+max_health = 100
+damage = 1
+attack_time = 0.5
+attack_delay = 0.15
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8vflq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ttbps"]
+width = 150
+height = 150
+noise = SubResource("FastNoiseLite_8vflq")
+
+[resource]
+script = ExtResource("3_w6wcc")
+name = "animal1"
+owned = true
+base_stats = SubResource("Resource_dst3y")
+icon = SubResource("NoiseTexture2D_ttbps")
+scene = ExtResource("2_mfkkk")

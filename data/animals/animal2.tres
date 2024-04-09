@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=6 format=3 uid="uid://b51xtm6tnmb7j"]
+
+[ext_resource type="Script" path="res://scripts/resource_scripts/base_stats.gd" id="1_s4mkq"]
+[ext_resource type="Texture2D" uid="uid://bumkqmae3jsjf" path="res://art/icons/animals/d21-19;53;22.png" id="2_oclml"]
+[ext_resource type="PackedScene" uid="uid://lyvdbesgh7s7" path="res://scenes/animal_models/model2.tscn" id="3_4eojc"]
+[ext_resource type="Script" path="res://scripts/resource_scripts/animal_data.gd" id="3_vrdg3"]
+
+[sub_resource type="Resource" id="Resource_dst3y"]
+script = ExtResource("1_s4mkq")
+max_health = 100
+damage = 1
+attack_time = 0.5
+attack_delay = 0.15
+
+[resource]
+script = ExtResource("3_vrdg3")
+name = "animal2"
+owned = true
+base_stats = SubResource("Resource_dst3y")
+icon = ExtResource("2_oclml")
+scene = ExtResource("3_4eojc")

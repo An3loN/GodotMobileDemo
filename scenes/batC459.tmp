@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvu8vga3thi6q"]
+
+[ext_resource type="Script" path="res://scripts/battle/enemy_spawner.gd" id="1_ef4ig"]
+[ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_inm8a"]
+[ext_resource type="PackedScene" uid="uid://crij6lrduhcit" path="res://scenes/kaka.tscn" id="3_14r3t"]
+[ext_resource type="PackedScene" uid="uid://dweaax83nygaw" path="res://scenes/spawn_point.tscn" id="3_vtuty"]
+[ext_resource type="Script" path="res://scripts/plane_grid.gd" id="4_50nuw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxsen"]
+albedo_color = Color(0.270588, 0.537255, 0.141176, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xymkh"]
+material = SubResource("StandardMaterial3D_gxsen")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vch8o"]
+size = Vector3(2, 0.04, 2)
+
+[node name="Battle" type="Node3D"]
+script = ExtResource("1_inm8a")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+mesh = SubResource("PlaneMesh_xymkh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+shape = SubResource("BoxShape3D_vch8o")
+
+[node name="EnemySpawner" type="Node3D" parent="."]
+script = ExtResource("1_ef4ig")
+enemy_scene = ExtResource("3_14r3t")
+spawner_scene = ExtResource("3_vtuty")
+
+[node name="Grid" type="Node3D" parent="."]
+script = ExtResource("4_50nuw")
+grid_size = Vector2(2.5, 2.5)
+cell_count = Vector2i(10, 10)

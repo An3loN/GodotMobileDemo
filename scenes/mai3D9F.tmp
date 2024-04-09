@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://hyltfkj2b68x"]
+
+[ext_resource type="PackedScene" uid="uid://bos1iabv14thx" path="res://scenes/animal_picker.tscn" id="1_c6p8v"]
+[ext_resource type="Script" path="res://scripts/main_controller.gd" id="1_nbi13"]
+[ext_resource type="Script" path="res://scripts/UI/deck_pick_container.gd" id="2_talbd"]
+[ext_resource type="PackedScene" uid="uid://b001y6er7gm6b" path="res://scenes/animal_button.tscn" id="3_1lnos"]
+[ext_resource type="Script" path="res://scripts/animal_loader.gd" id="3_6f6c1"]
+[ext_resource type="Script" path="res://scripts/UI/battle_start_tab_controller.gd" id="5_s7n2g"]
+[ext_resource type="Script" path="res://scripts/UI/animal_list.gd" id="6_3ghmb"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("animal_picker", "deck_pick_container", "animal_loader")]
+script = ExtResource("1_nbi13")
+animal_picker = NodePath("LayoutController/MainMenuControl/TabContainer/DeckPickTab/AnimalPicker")
+deck_pick_container = NodePath("LayoutController/MainMenuControl/TabContainer/DeckPickTab/DeckPickContainer")
+animal_loader = NodePath("AnimalLoader")
+
+[node name="LayoutController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuControl" type="Control" parent="LayoutController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="LayoutController/MainMenuControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+
+[node name="DeckPickTab" type="VBoxContainer" parent="LayoutController/MainMenuControl/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="DeckPickContainer" type="GridContainer" parent="LayoutController/MainMenuControl/TabContainer/DeckPickTab"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 5
+script = ExtResource("2_talbd")
+chosen_animal_button_scene = ExtResource("3_1lnos")
+
+[node name="AnimalPicker" parent="LayoutController/MainMenuControl/TabContainer/DeckPickTab" instance=ExtResource("1_c6p8v")]
+layout_mode = 2
+
+[node name="BattleStartTab" type="VBoxContainer" parent="LayoutController/MainMenuControl/TabContainer" node_paths=PackedStringArray("animal_preview_list", "animal_deck")]
+layout_mode = 2
+script = ExtResource("5_s7n2g")
+tab_index = 1
+animal_preview_size = Vector2i(100, 100)
+animal_preview_list = NodePath("AnimalList")
+animal_deck = NodePath("../DeckPickTab/DeckPickContainer")
+
+[node name="StartButton" type="Button" parent="LayoutController/MainMenuControl/TabContainer/BattleStartTab"]
+layout_mode = 2
+text = "Start"
+
+[node name="AnimalList" type="GridContainer" parent="LayoutController/MainMenuControl/TabContainer/BattleStartTab"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 5
+script = ExtResource("6_3ghmb")
+animal_button_scene = ExtResource("3_1lnos")
+
+[node name="BattleControl" type="Control" parent="LayoutController"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimalLoader" type="Node" parent="."]
+script = ExtResource("3_6f6c1")
+
+[connection signal="tab_changed" from="LayoutController/MainMenuControl/TabContainer" to="LayoutController/MainMenuControl/TabContainer/BattleStartTab" method="_on_tab_container_tab_changed"]

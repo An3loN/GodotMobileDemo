@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://b001y6er7gm6b"]
+
+[ext_resource type="Script" path="res://scripts/UI/animal_button.gd" id="1_ve7mt"]
+[ext_resource type="Texture2D" uid="uid://cmb2jd0xvahw3" path="res://art/UI/frame.png" id="2_tc6sc"]
+
+[sub_resource type="Gradient" id="Gradient_dat6h"]
+offsets = PackedFloat32Array(0, 0.98895)
+colors = PackedColorArray(0.282353, 0.282353, 0.282353, 0.627451, 0.282353, 0.282353, 0.282353, 0.627451)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xq4hj"]
+gradient = SubResource("Gradient_dat6h")
+fill_from = Vector2(0, 1)
+
+[node name="AnimalButton" type="TextureButton"]
+z_index = 1
+offset_right = 147.0
+offset_bottom = 149.0
+texture_normal = SubResource("GradientTexture2D_xq4hj")
+stretch_mode = 0
+script = ExtResource("1_ve7mt")
+touch_shift_treshold = 1000.0
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="BorderRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tc6sc")
+expand_mode = 1
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

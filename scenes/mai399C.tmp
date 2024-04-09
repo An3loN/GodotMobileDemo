@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://hyltfkj2b68x"]
+
+[ext_resource type="PackedScene" uid="uid://bos1iabv14thx" path="res://scenes/animal_picker.tscn" id="1_c6p8v"]
+[ext_resource type="Script" path="res://scripts/main_controller.gd" id="1_nbi13"]
+[ext_resource type="Script" path="res://scripts/UI/DeckPickContainer.gd" id="2_talbd"]
+[ext_resource type="Script" path="res://scripts/animal_loader.gd" id="3_6f6c1"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("animal_picker", "deck_pick_container", "animal_loader")]
+script = ExtResource("1_nbi13")
+animal_picker = NodePath("LayoutController/MainMenuControl/TabContainer/DeckPickTab/AnimalPicker")
+deck_pick_container = NodePath("LayoutController/MainMenuControl/TabContainer/DeckPickTab/DeckPickContainer")
+animal_loader = NodePath("AnimalLoader")
+
+[node name="LayoutController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuControl" type="Control" parent="LayoutController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="LayoutController/MainMenuControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeckPickTab" type="VBoxContainer" parent="LayoutController/MainMenuControl/TabContainer"]
+layout_mode = 2
+
+[node name="DeckPickContainer" type="GridContainer" parent="LayoutController/MainMenuControl/TabContainer/DeckPickTab"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 5
+script = ExtResource("2_talbd")
+
+[node name="AnimalPicker" parent="LayoutController/MainMenuControl/TabContainer/DeckPickTab" instance=ExtResource("1_c6p8v")]
+layout_mode = 2
+
+[node name="BattleControl" type="Control" parent="LayoutController"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimalLoader" type="Node" parent="."]
+script = ExtResource("3_6f6c1")

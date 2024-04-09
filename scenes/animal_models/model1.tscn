@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://crij6lrduhcit"]
+
+[ext_resource type="Script" path="res://scripts/battle/animal_model.gd" id="1_mguhk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k3728"]
+radius = 0.1
+height = 0.5
+
+[node name="Kaka" type="Node3D" node_paths=PackedStringArray("meshes")]
+script = ExtResource("1_mguhk")
+meshes = [NodePath("MeshInstance3D")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866601, -0.499002, 0, 0.499002, 0.866601, 0, 0.279795, 0.0399725)
+mesh = SubResource("CapsuleMesh_k3728")
+
+[node name="TopMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.537698, 0)
